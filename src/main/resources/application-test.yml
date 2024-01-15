@@ -3,7 +3,7 @@ micronaut:
   application:
     name: qr-school-lessons
   server:
-    port: 8080
+    port: 8383
     max-request-size: '10MB'
     multipart:
       max-file-size: '10MB'
@@ -15,7 +15,7 @@ micronaut:
         paths: classpath:views
         mapping: /main/**
 
-
+#
 #  security:
 #    intercept-url-map:
 #      - pattern: /api/upload/**
@@ -29,13 +29,13 @@ micronaut:
 #          secret:
 #            generator:
 #              secret: ${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}
-#
+
 
 datasources:
   default:
     db-type: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5433/qr_school_lessons?preparedStatementCacheQueries=0
+    url: jdbc:postgresql://localhost:5432/qr_school_lessons?preparedStatementCacheQueries=0
     driverClassName: org.postgresql.Driver
     username: postgres
     password: postgres
@@ -45,7 +45,7 @@ datasources:
 flyway:
   datasources:
     default:
-      enabled: true
+      enabled: false
 
 #upload:
 #  imagePath: /Users/gali/IdeaProjects/upload/images
