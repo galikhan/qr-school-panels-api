@@ -1,4 +1,4 @@
-package kz.aspansoftware;
+package kz.aspansoftware.controller;
 
 import io.micronaut.http.annotation.Body;
 import io.micronaut.http.annotation.Controller;
@@ -9,6 +9,7 @@ import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import jakarta.inject.Inject;
 import kz.aspansoftware.records.Topic;
+import kz.aspansoftware.repository.TopicRepository;
 
 import java.util.List;
 
@@ -31,6 +32,11 @@ public class TopicController {
     @Get("{id}")
     public Topic findById(@PathVariable Long id) {
         return topicRepository.findById(id);
+    }
+
+    @Get("/view/all")
+    public List<Topic> findAll() {
+        return topicRepository.findAll();
     }
 
     @Get("/parent/{id}")

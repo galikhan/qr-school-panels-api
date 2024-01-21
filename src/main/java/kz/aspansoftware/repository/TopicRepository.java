@@ -1,4 +1,4 @@
-package kz.aspansoftware;
+package kz.aspansoftware.repository;
 
 import jakarta.inject.Singleton;
 import kz.aspansoftware.records.Topic;
@@ -43,6 +43,7 @@ public class TopicRepository {
                 .set(TOPIC.CREATED_, LocalDateTime.now())
                 .set(TOPIC.TYPE_, topic.type())
                 .set(TOPIC.TOPIC.IS_REMOVED_, topic.isRemoved())
+                .where(TOPIC.ID_.eq(topic.id()))
                 .returningResult(TOPIC.ID_, TOPIC.NAME_, TOPIC.PARENT_, TOPIC.TYPE_, TOPIC.IS_REMOVED_)
                 .fetchOne(mapping(Topic::new));
     }
@@ -69,5 +70,10 @@ public class TopicRepository {
             return Topic.toTopic(record.get());
         }
         return null;
+    }
+
+    public List<Topic> findAll() {
+        return this.dsl.selectFrom(TOPIC)
+                .fetch().stream().map(Topic::toTopic).collect(Collectors.toList());
     }
 }
