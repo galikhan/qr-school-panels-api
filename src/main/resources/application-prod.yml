@@ -1,0 +1,55 @@
+#Tue Nov 14 09:03:05 GMT 2023
+micronaut:
+  application:
+    name: qr-school-lessons
+  server:
+    port: 8080
+    max-request-size: '10MB'
+    multipart:
+      max-file-size: '10MB'
+    cors:
+      enabled: true
+  router:
+    static-resources:
+      main:
+        paths: classpath:views
+        mapping: /main/**
+
+#
+#  security:
+#    intercept-url-map:
+#      - pattern: /api/upload/**
+#        httpMethod: POST
+#        access:
+#          - isAnonymous()
+#    authentication: bearer
+#    token:
+#      jwt:
+#        signatures:
+#          secret:
+#            generator:
+#              secret: ${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}
+
+
+datasources:
+  default:
+    db-type: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/qr_school_lessons?preparedStatementCacheQueries=0
+    driverClassName: org.postgresql.Driver
+    username: postgres
+    password: postgres
+    dialect: POSTGRES
+
+
+flyway:
+  datasources:
+    default:
+      enabled: false
+
+#upload:
+#  imagePath: /Users/gali/IdeaProjects/upload/images
+#  documentPath: /Users/gali/IdeaProjects/upload/docs
+
+
+apiUrl: http://localhost:8080/

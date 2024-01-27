@@ -7,6 +7,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
+import io.micronaut.http.server.cors.CrossOrigin;
 import jakarta.inject.Inject;
 import kz.aspansoftware.records.Content;
 import kz.aspansoftware.repository.ContentRepository;
@@ -14,6 +15,7 @@ import kz.aspansoftware.repository.ContentRepository;
 import java.util.List;
 
 @Controller("/api/v1/content")
+@CrossOrigin
 public class ContentController {
 
     @Inject

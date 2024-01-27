@@ -52,6 +52,7 @@ public class ContentRepository {
     public List<Content> findByTopic(Long id) {
         return this.dsl.selectFrom(CONTENT)
                 .where(CONTENT.IS_REMOVED_.eq(false).and(CONTENT.TOPIC_.eq(id)))
+                .orderBy(CONTENT.ID_)
                 .stream().map(Content::toContent).collect(Collectors.toList());
     }
 

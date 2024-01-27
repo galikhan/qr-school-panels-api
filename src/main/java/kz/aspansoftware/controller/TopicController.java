@@ -7,6 +7,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
+import io.micronaut.http.server.cors.CrossOrigin;
 import jakarta.inject.Inject;
 import kz.aspansoftware.records.Topic;
 import kz.aspansoftware.repository.TopicRepository;
@@ -14,6 +15,7 @@ import kz.aspansoftware.repository.TopicRepository;
 import java.util.List;
 
 @Controller("/api/v1/topic")
+@CrossOrigin
 public class TopicController {
 
     @Inject
