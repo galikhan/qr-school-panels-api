@@ -8,28 +8,21 @@ import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.server.cors.CrossOrigin;
+import io.micronaut.security.annotation.Secured;
+import io.micronaut.security.rules.SecurityRule;
 import jakarta.inject.Inject;
 import kz.aspansoftware.records.Content;
 import kz.aspansoftware.repository.ContentRepository;
 
 import java.util.List;
 
+@Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("/api/v1/content")
 @CrossOrigin
 public class ContentController {
 
     @Inject
     private ContentRepository contentRepository;
-
-    @Post
-    public Content create(@Body Content content) {
-        return contentRepository.create(content);
-    }
-
-    @Put
-    public Content update(@Body Content content) {
-        return contentRepository.update(content);
-    }
 
     @Get("{id}")
     public Content findById(@PathVariable Long id) {
@@ -46,8 +39,4 @@ public class ContentController {
         return contentRepository.findByTopic(id);
     }
 
-    @Delete("/{id}")
-    public int remove(Long id) {
-        return contentRepository.remove(id);
-    }
 }

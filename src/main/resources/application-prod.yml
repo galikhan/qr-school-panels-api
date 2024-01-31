@@ -15,20 +15,20 @@ micronaut:
         paths: classpath:views
         mapping: /main/**
 
-#
-#  security:
-#    intercept-url-map:
-#      - pattern: /api/upload/**
-#        httpMethod: POST
-#        access:
-#          - isAnonymous()
-#    authentication: bearer
-#    token:
-#      jwt:
-#        signatures:
-#          secret:
-#            generator:
-#              secret: ${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}
+
+  security:
+    intercept-url-map:
+      - pattern: /api/upload/**
+        httpMethod: POST
+        access:
+          - isAnonymous()
+    authentication: bearer
+    token:
+      jwt:
+        signatures:
+          secret:
+            generator:
+              secret: ${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}
 
 
 datasources:

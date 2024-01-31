@@ -16,27 +16,26 @@ import kz.aspansoftware.repository.TopicRepository;
 
 import java.util.List;
 
-@Secured(SecurityRule.IS_ANONYMOUS)
-@Controller("/api/v1/topic")
+@Secured(SecurityRule.IS_AUTHENTICATED)
+@Controller("/api/v1/private/topic")
 @CrossOrigin
-public class TopicController {
+public class TopicPrivateController {
 
     @Inject
     private TopicRepository topicRepository;
 
-    @Get("{id}")
-    public Topic findById(@PathVariable Long id) {
-        return topicRepository.findById(id);
+    @Post
+    public Topic create(@Body Topic topic) {
+        return topicRepository.create(topic);
     }
 
-    @Get("/view/all")
-    public List<Topic> findAll() {
-        return topicRepository.findAll();
+    @Put
+    public Topic update(@Body Topic topic) {
+        return topicRepository.update(topic);
     }
 
-    @Get("/parent/{id}")
-    public List<Topic> findByParent(Long id) {
-        return topicRepository.findByParent(id);
+    @Delete("/{id}")
+    public int remove(Long id) {
+        return topicRepository.remove(id);
     }
-
 }

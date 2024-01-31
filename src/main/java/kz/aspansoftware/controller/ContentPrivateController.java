@@ -11,32 +11,31 @@ import io.micronaut.http.server.cors.CrossOrigin;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import jakarta.inject.Inject;
-import kz.aspansoftware.records.Topic;
-import kz.aspansoftware.repository.TopicRepository;
+import kz.aspansoftware.records.Content;
+import kz.aspansoftware.repository.ContentRepository;
 
 import java.util.List;
 
-@Secured(SecurityRule.IS_ANONYMOUS)
-@Controller("/api/v1/topic")
+@Secured(SecurityRule.IS_AUTHENTICATED)
+@Controller("/api/v1/private/content")
 @CrossOrigin
-public class TopicController {
+public class ContentPrivateController {
 
     @Inject
-    private TopicRepository topicRepository;
+    private ContentRepository contentRepository;
 
-    @Get("{id}")
-    public Topic findById(@PathVariable Long id) {
-        return topicRepository.findById(id);
+    @Post
+    public Content create(@Body Content content) {
+        return contentRepository.create(content);
     }
 
-    @Get("/view/all")
-    public List<Topic> findAll() {
-        return topicRepository.findAll();
+    @Put
+    public Content update(@Body Content content) {
+        return contentRepository.update(content);
     }
 
-    @Get("/parent/{id}")
-    public List<Topic> findByParent(Long id) {
-        return topicRepository.findByParent(id);
+    @Delete("/{id}")
+    public int remove(Long id) {
+        return contentRepository.remove(id);
     }
-
 }
