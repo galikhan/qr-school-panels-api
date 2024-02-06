@@ -1,0 +1,1 @@
+alter table topic add column icon_type_ varchar(20);

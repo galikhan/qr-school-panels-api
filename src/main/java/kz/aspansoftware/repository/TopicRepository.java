@@ -30,7 +30,8 @@ public class TopicRepository {
                 .set(TOPIC.CREATED_, LocalDateTime.now())
                 .set(TOPIC.TYPE_, topic.type())
                 .set(TOPIC.TOPIC.IS_REMOVED_, topic.isRemoved())
-                .returningResult(TOPIC.ID_, TOPIC.NAME_, TOPIC.PARENT_, TOPIC.TYPE_, TOPIC.IS_REMOVED_)
+                .set(TOPIC.ICON_TYPE_, topic.iconType())
+                .returningResult(TOPIC.ID_, TOPIC.NAME_, TOPIC.PARENT_, TOPIC.TYPE_, TOPIC.IS_REMOVED_, TOPIC.ICON_TYPE_)
                 .fetchOne(mapping(Topic::new));
     }
 
@@ -43,8 +44,9 @@ public class TopicRepository {
                 .set(TOPIC.CREATED_, LocalDateTime.now())
                 .set(TOPIC.TYPE_, topic.type())
                 .set(TOPIC.TOPIC.IS_REMOVED_, topic.isRemoved())
+                .set(TOPIC.ICON_TYPE_, topic.iconType())
                 .where(TOPIC.ID_.eq(topic.id()))
-                .returningResult(TOPIC.ID_, TOPIC.NAME_, TOPIC.PARENT_, TOPIC.TYPE_, TOPIC.IS_REMOVED_)
+                .returningResult(TOPIC.ID_, TOPIC.NAME_, TOPIC.PARENT_, TOPIC.TYPE_, TOPIC.IS_REMOVED_, TOPIC.ICON_TYPE_)
                 .fetchOne(mapping(Topic::new));
     }
 
@@ -55,6 +57,7 @@ public class TopicRepository {
     public List<Topic> findByParent(Long id) {
         return this.dsl.selectFrom(TOPIC)
                 .where(TOPIC.IS_REMOVED_.eq(false).and(TOPIC.PARENT_.eq(id)))
+                .orderBy(TOPIC.ID_)
                 .stream().map(Topic::toTopic).collect(Collectors.toList());
     }
 

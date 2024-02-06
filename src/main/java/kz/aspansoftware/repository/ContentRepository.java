@@ -28,7 +28,15 @@ public class ContentRepository {
                 .set(CONTENT.TYPE_, content.type())
                 .set(CONTENT.BODY_, content.body())
                 .set(CONTENT.INPUT_, content.input())
-                .returningResult(CONTENT.ID_, CONTENT.TOPIC_, CONTENT.TYPE_, CONTENT.BODY_, CONTENT.INPUT_, CONTENT.IS_REMOVED_)
+                .set(CONTENT.EDITOR_LEN_, content.editorLen())
+                .returningResult(CONTENT.ID_,
+                        CONTENT.TOPIC_,
+                        CONTENT.TYPE_,
+                        CONTENT.BODY_,
+                        CONTENT.INPUT_,
+                        CONTENT.IS_REMOVED_,
+                        CONTENT.EDITOR_LEN_
+                )
                 .fetchOne(mapping(Content::new));
     }
 
@@ -40,8 +48,16 @@ public class ContentRepository {
                 .set(CONTENT.BODY_, content.body())
                 .set(CONTENT.INPUT_, content.input())
                 .set(CONTENT.IS_REMOVED_, content.isRemoved())
+                .set(CONTENT.EDITOR_LEN_, content.editorLen())
                 .where(CONTENT.ID_.eq(content.id()))
-                .returningResult(CONTENT.ID_, CONTENT.TOPIC_, CONTENT.TYPE_, CONTENT.BODY_, CONTENT.INPUT_, CONTENT.IS_REMOVED_)
+                .returningResult(CONTENT.ID_,
+                        CONTENT.TOPIC_,
+                        CONTENT.TYPE_,
+                        CONTENT.BODY_,
+                        CONTENT.INPUT_,
+                        CONTENT.IS_REMOVED_,
+                        CONTENT.EDITOR_LEN_
+                )
                 .fetchOne(mapping(Content::new));
     }
 

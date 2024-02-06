@@ -47,9 +47,8 @@ flyway:
     default:
       enabled: false
 
-#upload:
-#  imagePath: /Users/gali/IdeaProjects/upload/images
-#  documentPath: /Users/gali/IdeaProjects/upload/docs
+upload:
+  imagePath:  /home/gali/upload/images
 
 
 apiUrl: http://localhost:8080/

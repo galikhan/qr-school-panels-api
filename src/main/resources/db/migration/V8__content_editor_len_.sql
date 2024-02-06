@@ -1,0 +1,1 @@
+alter table content add column editor_len_ integer default 5;
