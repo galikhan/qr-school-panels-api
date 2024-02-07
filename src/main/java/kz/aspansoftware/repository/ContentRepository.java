@@ -22,6 +22,9 @@ public class ContentRepository {
     }
 
     public Content create(Content content) {
+        var taskCounter = getTaskCount(content.topic());
+        System.out.println(content.topic()+", counter :"+taskCounter);
+        taskCounter = taskCounter + 1;
         return this.dsl
                 .insertInto(CONTENT)
                 .set(CONTENT.TOPIC_, content.topic())
@@ -29,13 +32,15 @@ public class ContentRepository {
                 .set(CONTENT.BODY_, content.body())
                 .set(CONTENT.INPUT_, content.input())
                 .set(CONTENT.EDITOR_LEN_, content.editorLen())
+                .set(CONTENT.TASK_COUNTER_, taskCounter)
                 .returningResult(CONTENT.ID_,
                         CONTENT.TOPIC_,
                         CONTENT.TYPE_,
                         CONTENT.BODY_,
                         CONTENT.INPUT_,
                         CONTENT.IS_REMOVED_,
-                        CONTENT.EDITOR_LEN_
+                        CONTENT.EDITOR_LEN_,
+                        CONTENT.TASK_COUNTER_
                 )
                 .fetchOne(mapping(Content::new));
     }
@@ -49,14 +54,17 @@ public class ContentRepository {
                 .set(CONTENT.INPUT_, content.input())
                 .set(CONTENT.IS_REMOVED_, content.isRemoved())
                 .set(CONTENT.EDITOR_LEN_, content.editorLen())
+                .set(CONTENT.TASK_COUNTER_, content.taskCounter())
                 .where(CONTENT.ID_.eq(content.id()))
+
                 .returningResult(CONTENT.ID_,
                         CONTENT.TOPIC_,
                         CONTENT.TYPE_,
                         CONTENT.BODY_,
                         CONTENT.INPUT_,
                         CONTENT.IS_REMOVED_,
-                        CONTENT.EDITOR_LEN_
+                        CONTENT.EDITOR_LEN_,
+                        CONTENT.TASK_COUNTER_
                 )
                 .fetchOne(mapping(Content::new));
     }
@@ -89,5 +97,14 @@ public class ContentRepository {
     public List<Content> findAll() {
         return this.dsl.selectFrom(CONTENT)
                 .fetch().stream().map(Content::toContent).collect(Collectors.toList());
+    }
+
+    public int getTaskCount(Long topicId) {
+        return this.dsl.selectCount()
+                .from(CONTENT)
+                .where(CONTENT.TOPIC_.eq(topicId))
+                .and(CONTENT.IS_REMOVED_.eq(false))
+                .and(CONTENT.TYPE_.eq("task"))
+                .fetchOne().value1();
     }
 }

@@ -38,4 +38,10 @@ public class TopicPrivateController {
     public int remove(Long id) {
         return topicRepository.remove(id);
     }
+
+    @Get("/parent/{id}")
+    public List<Topic> findByParent(Long id) {
+        return topicRepository.findByParent(id);
+    }
+
 }
