@@ -15,7 +15,7 @@ import reactor.core.publisher.FluxSink;
 @Singleton
 public class AuthProvider implements AuthenticationProvider<HttpRequest<?>> {
 
-    private Logger logger = LoggerFactory.getLogger(AuthProvider.class);
+    private final Logger logger = LoggerFactory.getLogger(AuthProvider.class);
 
     @Override
     public Publisher<AuthenticationResponse> authenticate(@Nullable HttpRequest<?> httpRequest,

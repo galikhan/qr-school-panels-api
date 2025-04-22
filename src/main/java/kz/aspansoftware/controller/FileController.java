@@ -4,6 +4,7 @@ import io.micronaut.context.annotation.Value;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.multipart.CompletedFileUpload;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import org.slf4j.Logger;
@@ -15,9 +16,12 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import static io.micronaut.scheduling.TaskExecutors.BLOCKING;
+
 
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("/api/upload")
+@ExecuteOn(BLOCKING)
 public class FileController {
 
     @Value("${upload.imagePath}")

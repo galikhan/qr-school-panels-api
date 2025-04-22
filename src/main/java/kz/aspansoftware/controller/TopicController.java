@@ -8,6 +8,7 @@ import io.micronaut.http.annotation.PathVariable;
 import io.micronaut.http.annotation.Post;
 import io.micronaut.http.annotation.Put;
 import io.micronaut.http.server.cors.CrossOrigin;
+import io.micronaut.scheduling.annotation.ExecuteOn;
 import io.micronaut.security.annotation.Secured;
 import io.micronaut.security.rules.SecurityRule;
 import jakarta.inject.Inject;
@@ -16,9 +17,12 @@ import kz.aspansoftware.repository.TopicRepository;
 
 import java.util.List;
 
+import static io.micronaut.scheduling.TaskExecutors.BLOCKING;
+
 @Secured(SecurityRule.IS_ANONYMOUS)
 @Controller("/api/v1/topic")
 @CrossOrigin
+@ExecuteOn(BLOCKING)
 public class TopicController {
 
     @Inject

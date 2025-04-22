@@ -15,6 +15,13 @@ micronaut:
         paths: classpath:views
         mapping: /main/**
 
+  netty:
+    event-loops:
+      default:
+        num-threads: 10
+  executors:
+    blocking:
+      type: CACHED
 
   security:
     intercept-url-map:
@@ -28,7 +35,7 @@ micronaut:
         signatures:
           secret:
             generator:
-              secret: ${JWT_GENERATOR_SIGNATURE_SECRET:pleaseChangeThisSecretForANewOne}
+              secret: 6adfb183a4a2c94a2f92dab5ade762a47889a5a1
 
 
 datasources:
